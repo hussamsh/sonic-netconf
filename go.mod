@@ -8,6 +8,7 @@ require (
 	github.com/go-redis/redis/v7 v7.0.0-beta.3.0.20190824101152-d19aba07b476
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/google/uuid v1.3.0
+	github.com/pkg/profile v1.7.0
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 )
 
