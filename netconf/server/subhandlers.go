@@ -53,56 +53,59 @@ func readYangModules() {
 
 	// return all schemas in module form
 
-	schemas := []Schema{}
+	// schemas := []Schema{}
 
 	YangSchemas = make(map[string][]Schema)
 
-	yangMod, err := translib.GetYanglibInfo()
+	glog.Warning("Unable to read yangmodules")
+	return
 
-	if err != nil {
-		glog.Warning("Unable to read yangmodules")
-		return
-	}
+	// yangMod, err := translib.GetYanglibInfo()
 
-	YangModules.ModuleSetId = yangMod.ModuleSetId
+	// if err != nil {
+	// 	glog.Warning("Unable to read yangmodules")
+	// 	return
+	// }
 
-	for module_key, module := range yangMod.Module {
+	// YangModules.ModuleSetId = yangMod.ModuleSetId
 
-		schema := Schema{}
-		schema.Identifier = strings.ToLower(*module.Name)
-		schema.Version = module_key.Revision
-		schema.Format = "yang"
-		schema.NameSpace = *module.Namespace
-		schema.ModelPath = "/usr/models/yang/" + *module.Name + ".yang"
-		schema.Location = "NETCONF"
+	// for module_key, module := range yangMod.Module {
 
-		schemas = append(schemas, schema)
+	// 	schema := Schema{}
+	// 	schema.Identifier = strings.ToLower(*module.Name)
+	// 	schema.Version = module_key.Revision
+	// 	schema.Format = "yang"
+	// 	schema.NameSpace = *module.Namespace
+	// 	schema.ModelPath = "/usr/models/yang/" + *module.Name + ".yang"
+	// 	schema.Location = "NETCONF"
 
-		YangSchemas[schema.Identifier] = append(YangSchemas[schema.Identifier], schema)
+	// 	schemas = append(schemas, schema)
 
-		mod := Module{}
+	// 	YangSchemas[schema.Identifier] = append(YangSchemas[schema.Identifier], schema)
 
-		mod.Name = module.Name
-		mod.Namespace = module.Namespace
-		mod.Revision = module.Revision
-		if module.Schema == nil {
-			s := ("http://localhost/usr/models/yang/" + *module.Name)
-			mod.Schema = &s
-		} else {
-			mod.Schema = module.Schema
-		}
-		if module.ConformanceType == 0 {
-			mod.ConformanceType = "UNSET"
-		} else if module.ConformanceType == 1 {
-			mod.ConformanceType = "implement"
-		} else if module.ConformanceType == 2 {
-			mod.ConformanceType = "import"
-		}
+	// 	mod := Module{}
 
-		YangModules.Modules = append(YangModules.Modules, mod)
-	}
+	// 	mod.Name = module.Name
+	// 	mod.Namespace = module.Namespace
+	// 	mod.Revision = module.Revision
+	// 	if module.Schema == nil {
+	// 		s := ("http://localhost/usr/models/yang/" + *module.Name)
+	// 		mod.Schema = &s
+	// 	} else {
+	// 		mod.Schema = module.Schema
+	// 	}
+	// 	if module.ConformanceType == 0 {
+	// 		mod.ConformanceType = "UNSET"
+	// 	} else if module.ConformanceType == 1 {
+	// 		mod.ConformanceType = "implement"
+	// 	} else if module.ConformanceType == 2 {
+	// 		mod.ConformanceType = "import"
+	// 	}
 
-	yangModulesInit = true
+	// 	YangModules.Modules = append(YangModules.Modules, mod)
+	// }
+
+	// yangModulesInit = true
 }
 
 func GetRequestHandler(authenticator Authenticator, rootNode *xmlquery.Node) (string, error) {
